@@ -2,25 +2,28 @@
   "name": "methanol-guard",
   "private": true,
   "version": "0.0.0",
+  "main": "expo-router/entry",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "oxlint",
-    "preview": "vite preview"
+    "dev": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "build": "tsc -b",
+    "lint": "oxlint"
   },
   "dependencies": {
-    "expo": "^57.0.20",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "expo": "~57.0.21",
+    "expo-router": "~57.0.20",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "@vitejs/plugin-react": "^6.1.0",
     "oxlint": "^1.79.0",
-    "typescript": "~6.0.2",
-    "vite": "^8.2.2"
+    "typescript": "~6.0.2"
   }
 }
