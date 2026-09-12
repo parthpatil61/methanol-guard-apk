@@ -20,7 +20,7 @@ npm install
 npm run dev
 ```
 
-Open the URL Vite prints (usually http://localhost:5173). Use **Practice: blank** and **Practice: purple** if you do not have a strip yet.
+Open the URL Vite prints (usually http://localhost:5173)
 
 ## Safety
 
