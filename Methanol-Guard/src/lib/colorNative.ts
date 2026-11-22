@@ -337,11 +337,11 @@ export function analyzeMetrics(
     contrast === 'low';
 
   /*
-   * DEMO CALIBRATION
+   * PROVISIONAL DEMO SCORING
    *
-   * Preserved from the original prototype.
-   * Replace with laboratory calibration data
-   * before using quantitative concentration values.
+   * This score uses a placeholder yellow-index threshold.
+   * It is not a validated risk classification and must be
+   * replaced after experimental calibration.
    */
   const riskScore =
     Math.round(
