@@ -237,14 +237,14 @@ export default function CloudTestScreen() {
     }
 
     if (band === 'high') {
-      return 'Strong demo signal';
+      return 'Risk';
     }
 
     if (band === 'suspicious') {
-      return 'Moderate demo signal';
+      return 'Suspicious';
     }
 
-    return 'Weak demo signal';
+    return 'Safe';
   }
 
   function getBandColor(
