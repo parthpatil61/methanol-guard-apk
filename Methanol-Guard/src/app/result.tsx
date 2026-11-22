@@ -126,10 +126,10 @@ export default function ResultScreen() {
 
   const bandLabel =
     result?.band === 'high'
-      ? 'High risk'
+      ? 'Strong demo signal'
       : result?.band === 'suspicious'
-        ? 'Suspicious'
-        : 'Screening: low signal';
+        ? 'Moderate demo signal'
+        : 'Weak demo signal';
 
   return (
     <SafeAreaView
