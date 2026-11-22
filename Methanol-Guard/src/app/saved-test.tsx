@@ -270,7 +270,7 @@ export default function SavedTestScreen() {
               value={
                 result.quality.yellowSignal === 'strong'
                   ? 'Strong'
-                  : result.quality.purpleSignal === 'ok'
+                  : result.quality.yellowSignal === 'ok'
                     ? 'Detected'
                     : 'Weak'
               }
