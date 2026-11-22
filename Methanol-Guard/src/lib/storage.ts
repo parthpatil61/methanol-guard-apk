@@ -33,6 +33,7 @@ export interface TestRecord {
       s: number;
       v: number;
       purpleIndex: number;
+      yellowIndex: number;
       luminance: number;
       contrast: number;
     };
@@ -41,6 +42,7 @@ export interface TestRecord {
       lighting: 'ok' | 'dark' | 'bright';
       contrast: 'ok' | 'low';
       purpleSignal: 'ok' | 'weak' | 'strong';
+      yellowSignal: 'ok' | 'weak' | 'strong';
       retakeSuggested: boolean;
       messages: string[];
     };
@@ -58,7 +60,22 @@ export async function loadTests(): Promise<TestRecord[]> {
       return [];
     }
 
-    return JSON.parse(stored);
+    const records = JSON.parse(stored) as TestRecord[];
+    // Backfill newly introduced demo fields for records saved by older app versions.
+    return records.map((record) => ({
+      ...record,
+      result: {
+        ...record.result,
+        metrics: {
+          ...record.result.metrics,
+          yellowIndex: record.result.metrics.yellowIndex ?? 0,
+        },
+        quality: {
+          ...record.result.quality,
+          yellowSignal: record.result.quality.yellowSignal ?? 'weak',
+        },
+      },
+    }));
   } catch (error) {
     console.error('Could not load tests:', error);
     return [];
@@ -222,6 +239,8 @@ export async function saveTest(
 
         purple_index:
           test.result.metrics.purpleIndex,
+        yellow_index:
+          test.result.metrics.yellowIndex,
         luminance:
           test.result.metrics.luminance,
         contrast:
@@ -233,6 +252,8 @@ export async function saveTest(
           test.result.quality.contrast,
         purple_signal:
           test.result.quality.purpleSignal,
+        yellow_signal:
+          test.result.quality.yellowSignal,
         retake_suggested:
           test.result.quality.retakeSuggested,
 
