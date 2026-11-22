@@ -72,10 +72,10 @@ export default function SavedTestScreen() {
 
   const bandLabel =
     result.band === 'high'
-      ? 'Strong demo signal'
+      ? 'Risk'
       : result.band === 'suspicious'
-        ? 'Moderate demo signal'
-        : 'Weak demo signal';
+        ? 'Suspicious'
+        : 'Safe';
 
   return (
     <SafeAreaView style={styles.safeArea}>
