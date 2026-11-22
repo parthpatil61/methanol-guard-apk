@@ -76,6 +76,26 @@ type CloudTest = {
   investigation_date: string | null;
 };
 
+function isInvestigationStatus(
+  value: string | null,
+): value is InvestigationStatus {
+  return (
+    value === 'Not started' ||
+    value === 'Under investigation' ||
+    value === 'Closed'
+  );
+}
+
+function isLabStatus(
+  value: string | null,
+): value is LabStatus {
+  return (
+    value === 'Pending' ||
+    value === 'Confirmed' ||
+    value === 'Not confirmed'
+  );
+}
+
 export default function CloudTestScreen() {
   const router = useRouter();
 
@@ -180,26 +200,6 @@ export default function CloudTestScreen() {
 
     loadCloudTest();
   }, [id]);
-
-  function isInvestigationStatus(
-    value: string | null,
-  ): value is InvestigationStatus {
-    return (
-      value === 'Not started' ||
-      value === 'Under investigation' ||
-      value === 'Closed'
-    );
-  }
-
-  function isLabStatus(
-    value: string | null,
-  ): value is LabStatus {
-    return (
-      value === 'Pending' ||
-      value === 'Confirmed' ||
-      value === 'Not confirmed'
-    );
-  }
 
   function formatDate(date: string | null) {
     if (!date) {
