@@ -58,12 +58,14 @@ type CloudTest = {
   value: number | null;
 
   purple_index: number | null;
+  yellow_index: number | null;
   luminance: number | null;
   contrast: number | null;
 
   lighting: string | null;
   contrast_quality: string | null;
   purple_signal: string | null;
+  yellow_signal: string | null;
   retake_suggested: boolean | null;
 
   quality_messages: string[] | null;
@@ -654,16 +656,16 @@ export default function CloudTestScreen() {
             </div>
 
             <div class="score">
-              Risk score:
+              Demo signal score:
               ${escapeHtml(
                 test.risk_score ?? 0,
               )}/100
             </div>
 
             <div class="estimate">
-              Screening estimate:
+              Methanol concentration:
               ${escapeHtml(
-                test.estimated_mg_l ?? 0,
+                'Not calibrated',
               )} mg/L
             </div>
           </div>
@@ -840,13 +842,13 @@ export default function CloudTestScreen() {
 
               <tr>
                 <td class="label">
-                  Purple index
+                  Yellow index (demo)
                 </td>
 
                 <td>
                   ${escapeHtml(
                     formatNumber(
-                      test.purple_index,
+                      test.yellow_index,
                     ),
                   )}
                 </td>
@@ -916,12 +918,12 @@ export default function CloudTestScreen() {
 
               <tr>
                 <td class="label">
-                  Purple signal
+                  Yellow signal
                 </td>
 
                 <td>
                   ${escapeHtml(
-                    test.purple_signal ||
+                    test.yellow_signal ||
                       'Not available',
                   )}
                 </td>
@@ -1184,12 +1186,11 @@ export default function CloudTestScreen() {
           </Text>
 
           <Text style={styles.score}>
-            Risk score: {test.risk_score ?? 0}/100
+            Demo signal score: {test.risk_score ?? 0}/100
           </Text>
 
           <Text style={styles.estimate}>
-            Screening estimate:{' '}
-            {test.estimated_mg_l ?? 0} mg/L
+            Methanol concentration: Not calibrated
           </Text>
 
           {test.band === 'high' && (
@@ -1349,9 +1350,9 @@ export default function CloudTestScreen() {
           />
 
           <InfoRow
-            label="Purple index"
+            label="Yellow index (demo)"
             value={formatNumber(
-              test.purple_index,
+              test.yellow_index,
             )}
           />
 
@@ -1393,9 +1394,9 @@ export default function CloudTestScreen() {
           />
 
           <InfoRow
-            label="Purple signal"
+            label="Yellow signal"
             value={
-              test.purple_signal ||
+              test.yellow_signal ||
               'Not available'
             }
           />
