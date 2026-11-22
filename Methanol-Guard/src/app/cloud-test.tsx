@@ -666,7 +666,7 @@ export default function CloudTestScreen() {
               Methanol concentration:
               ${escapeHtml(
                 'Not calibrated',
-              )} mg/L
+              )}
             </div>
           </div>
 
