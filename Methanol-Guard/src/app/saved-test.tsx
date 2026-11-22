@@ -72,10 +72,10 @@ export default function SavedTestScreen() {
 
   const bandLabel =
     result.band === 'high'
-      ? 'High risk'
+      ? 'Strong demo signal'
       : result.band === 'suspicious'
-        ? 'Suspicious'
-        : 'Screening: low signal';
+        ? 'Moderate demo signal'
+        : 'Weak demo signal';
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -137,7 +137,7 @@ export default function SavedTestScreen() {
           >
             <View>
               <Text style={styles.scoreLabel}>
-                Risk score
+                Demo signal score
               </Text>
 
               <Text style={styles.score}>
