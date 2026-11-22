@@ -62,12 +62,6 @@ export default function AuthorityDashboardScreen() {
   const [sortNewestFirst, setSortNewestFirst] =
     useState(true);
 
-  useFocusEffect(
-    useCallback(() => {
-      loadCloudTests();
-    }, []),
-  );
-
   function isInvestigationStatus(
     value: unknown,
   ): value is InvestigationStatus {
@@ -88,7 +82,7 @@ export default function AuthorityDashboardScreen() {
     );
   }
 
-  async function loadCloudTests() {
+  const loadCloudTests = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -194,6 +188,10 @@ export default function AuthorityDashboardScreen() {
               item.purple_index ?? 0,
             ),
 
+            yellowIndex: Number(
+              item.yellow_index ?? 0,
+            ),
+
             luminance: Number(
               item.luminance ?? 0,
             ),
@@ -222,6 +220,13 @@ export default function AuthorityDashboardScreen() {
                 ? 'strong'
                 : item.purple_signal ===
                     'weak'
+                  ? 'weak'
+                  : 'ok',
+
+            yellowSignal:
+              item.yellow_signal === 'strong'
+                ? 'strong'
+                : item.yellow_signal === 'weak'
                   ? 'weak'
                   : 'ok',
 
@@ -275,7 +280,13 @@ export default function AuthorityDashboardScreen() {
       setLoading(false);
       setRefreshing(false);
     }
-  }
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      void loadCloudTests();
+    }, [loadCloudTests]),
+  );
 
   async function handleRefresh() {
     setRefreshing(true);
@@ -289,20 +300,6 @@ export default function AuthorityDashboardScreen() {
     tests.filter(
       (test) =>
         test.result.band === 'high',
-    ).length;
-
-  const suspicious =
-    tests.filter(
-      (test) =>
-        test.result.band ===
-        'suspicious',
-    ).length;
-
-  const lowSignal =
-    tests.filter(
-      (test) =>
-        test.result.band ===
-        'safe',
     ).length;
 
   const underInvestigation =
