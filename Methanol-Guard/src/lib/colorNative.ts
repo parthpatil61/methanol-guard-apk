@@ -9,7 +9,8 @@ export interface ColorMetrics {
   h: number;
   s: number;
   v: number;
-  purpleIndex: number;
+  purpleIndex: number; // retained for legacy records
+  yellowIndex: number;
   luminance: number;
   contrast: number;
 }
@@ -20,6 +21,7 @@ export interface AnalysisResult {
     lighting: 'ok' | 'dark' | 'bright';
     contrast: 'ok' | 'low';
     purpleSignal: 'ok' | 'weak' | 'strong';
+    yellowSignal: 'ok' | 'weak' | 'strong';
     retakeSuggested: boolean;
     messages: string[];
   };
@@ -82,6 +84,14 @@ function purpleHueWeight(h: number) {
     0,
     1 - dist / 70
   );
+}
+
+function yellowHueWeight(h: number) {
+  // Provisional demo hue window centered near yellow (~50 degrees).
+  // Replace these limits with empirical values after strip calibration.
+  const center = 50;
+  const distance = Math.min(Math.abs(h - center), 360 - Math.abs(h - center));
+  return Math.max(0, 1 - distance / 35);
 }
 
 function analyzePixels(
@@ -205,6 +215,7 @@ function analyzePixels(
       s: 0,
       v: 0,
       purpleIndex: 0,
+      yellowIndex: 0,
       luminance: 0,
       contrast: 0,
     };
@@ -241,6 +252,11 @@ function analyzePixels(
     hsv.s *
     (0.45 + 0.55 * hsv.v);
 
+  const yellowIndex =
+    yellowHueWeight(hsv.h) *
+    hsv.s *
+    (0.45 + 0.55 * hsv.v);
+
   return {
     r,
     g,
@@ -249,6 +265,7 @@ function analyzePixels(
     s: hsv.s,
     v: hsv.v,
     purpleIndex,
+    yellowIndex,
     luminance,
     contrast,
   };
@@ -310,6 +327,11 @@ export function analyzeMetrics(
     purpleSignal = 'strong';
   }
 
+  let yellowSignal: 'ok' | 'weak' | 'strong' = 'weak';
+  // Placeholder demo thresholds; these are not experimentally calibrated.
+  if (metrics.yellowIndex > 0.18) yellowSignal = 'ok';
+  if (metrics.yellowIndex > 0.38) yellowSignal = 'strong';
+
   const retakeSuggested =
     lighting !== 'ok' ||
     contrast === 'low';
@@ -327,7 +349,7 @@ export function analyzeMetrics(
         100,
         Math.max(
           0,
-          metrics.purpleIndex * 145
+          metrics.yellowIndex * 145
         )
       )
     );
@@ -342,20 +364,11 @@ export function analyzeMetrics(
     band = 'suspicious';
   }
 
-  const estimatedMgL =
-    riskScore < 8
-      ? 0
-      : Math.round(
-          (riskScore / 100) *
-            1800
-        );
+  // Concentration is deliberately disabled until laboratory calibration.
+  const estimatedMgL = 0;
 
   const interpretation =
-    band === 'high'
-      ? 'High suspicion of methanol. Flag this sample for confirmatory laboratory analysis (GC / GC-MS). Do not treat this result as legal proof.'
-      : band === 'suspicious'
-        ? 'Possible contamination. Repeat the strip if lighting was poor, then send a portion of the sample for laboratory confirmation.'
-        : 'No strong purple chromotropic-acid signal in the sampled zone. This is a preliminary screen only — it does not prove the drink is safe.';
+    'DEMO ONLY: provisional yellow-colour signal in the Nash-reagent reaction zone. The index and bands use placeholder thresholds and are not validated for methanol detection or concentration.';
 
   return {
     metrics,
@@ -364,6 +377,7 @@ export function analyzeMetrics(
       lighting,
       contrast,
       purpleSignal,
+      yellowSignal,
       retakeSuggested,
       messages,
     },
