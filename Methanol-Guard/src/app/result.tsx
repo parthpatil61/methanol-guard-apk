@@ -172,9 +172,9 @@ export default function ResultScreen() {
           <Text
             style={styles.disclaimerText}
           >
-            Screening tool only — purple color is a preliminary
-            chromotropic-acid style signal. Confirm with a laboratory.
-            Not medical or legal advice.
+            DEMO ONLY — provisional yellow-colour detection for the Nash-reagent
+            reaction zone. Thresholds are not calibrated and do not establish
+            methanol presence or concentration.
           </Text>
         </View>
 
@@ -249,7 +249,7 @@ export default function ResultScreen() {
                       styles.scoreLabel
                     }
                   >
-                    Risk score
+                    Demo signal score
                   </Text>
 
                   <Text
@@ -305,7 +305,7 @@ export default function ResultScreen() {
                     styles.metricTitle
                   }
                 >
-                  Demo estimate
+                  Methanol concentration
                 </Text>
 
                 <Text
@@ -313,8 +313,7 @@ export default function ResultScreen() {
                     styles.metricValue
                   }
                 >
-                  {result.estimatedMgL}{' '}
-                  mg/L
+                  Not calibrated
                 </Text>
 
                 <Text
@@ -322,8 +321,8 @@ export default function ResultScreen() {
                     styles.metricNote
                   }
                 >
-                  Replace with a validated laboratory calibration
-                  curve before using quantitative values.
+                  Concentration output is disabled until the strip is calibrated
+                  against known methanol standards.
                 </Text>
               </View>
 
@@ -397,10 +396,10 @@ export default function ResultScreen() {
                 />
 
                 <QualityRow
-                  name="Purple signal"
+                  name="Yellow signal"
                   value={
                     result.quality
-                      .purpleSignal ===
+                      .yellowSignal ===
                     'strong'
                       ? 'Strong'
                       : result.quality
@@ -453,8 +452,8 @@ export default function ResultScreen() {
                 />
 
                 <Metric
-                  label="Purple index"
-                  value={result.metrics.purpleIndex.toFixed(3)}
+                  label="Yellow index (demo)"
+                  value={result.metrics.yellowIndex.toFixed(3)}
                 />
 
                 <Metric
@@ -496,7 +495,7 @@ export default function ResultScreen() {
                 }
               >
                 Analyze the captured image to calculate the preliminary
-                RGB, HSV and purple-index measurements from the selected
+                RGB, HSV and provisional yellow-index measurements from the selected
                 sampling circle.
               </Text>
             </View>
