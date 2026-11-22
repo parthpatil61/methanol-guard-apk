@@ -14,5 +14,9 @@
   "include": [
     "**/*.ts",
     "**/*.tsx"
+  ],
+  "exclude": [
+    "**/*.web.ts",
+    "**/*.web.tsx"
   ]
 }

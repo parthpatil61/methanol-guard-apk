@@ -40,6 +40,8 @@ const [description, setDescription] = useState('');
             style={styles.input}
             placeholder="e.g. MG-001"
             placeholderTextColor="#8A9AA0"
+            value={sampleId}
+            onChangeText={setSampleId}
           />
 
           <Text style={styles.label}>Sample Type</Text>

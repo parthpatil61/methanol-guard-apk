@@ -72,10 +72,10 @@ export default function SavedTestScreen() {
 
   const bandLabel =
     result.band === 'high'
-      ? 'High risk'
+      ? 'Risk'
       : result.band === 'suspicious'
         ? 'Suspicious'
-        : 'Screening: low signal';
+        : 'Safe';
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -137,7 +137,7 @@ export default function SavedTestScreen() {
           >
             <View>
               <Text style={styles.scoreLabel}>
-                Risk score
+                Demo signal score
               </Text>
 
               <Text style={styles.score}>
@@ -215,17 +215,16 @@ export default function SavedTestScreen() {
           {/* Estimate */}
           <View style={styles.card}>
             <Text style={styles.sectionTitle}>
-              Demo estimate
+              Methanol concentration
             </Text>
 
             <Text style={styles.estimate}>
-              {result.estimatedMgL} mg/L
+              Not calibrated
             </Text>
 
             <Text style={styles.note}>
-              This is based on the prototype's demo calibration.
-              Replace it with laboratory calibration before using
-              quantitative concentration values.
+              Provisional yellow-index demo only. Methanol concentration
+              remains unavailable until laboratory calibration.
             </Text>
           </View>
 
@@ -267,11 +266,11 @@ export default function SavedTestScreen() {
             />
 
             <InfoRow
-              label="Purple signal"
+              label="Yellow signal"
               value={
-                result.quality.purpleSignal === 'strong'
+                result.quality.yellowSignal === 'strong'
                   ? 'Strong'
-                  : result.quality.purpleSignal === 'ok'
+                  : result.quality.yellowSignal === 'ok'
                     ? 'Detected'
                     : 'Weak'
               }
@@ -295,8 +294,8 @@ export default function SavedTestScreen() {
             />
 
             <InfoRow
-              label="Purple index"
-              value={result.metrics.purpleIndex.toFixed(3)}
+              label="Yellow index (demo)"
+              value={(result.metrics.yellowIndex ?? 0).toFixed(3)}
             />
 
             <InfoRow
