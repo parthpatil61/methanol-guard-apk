@@ -126,10 +126,10 @@ export default function ResultScreen() {
 
   const bandLabel =
     result?.band === 'high'
-      ? 'Strong demo signal'
+      ? 'Risk'
       : result?.band === 'suspicious'
-        ? 'Moderate demo signal'
-        : 'Weak demo signal';
+        ? 'Suspicious'
+        : 'Safe';
 
   return (
     <SafeAreaView
@@ -173,8 +173,7 @@ export default function ResultScreen() {
             style={styles.disclaimerText}
           >
             DEMO ONLY — provisional yellow-colour detection for the Nash-reagent
-            reaction zone. Thresholds are not calibrated and do not establish
-            methanol presence or concentration.
+            reaction zone. Thresholds and Safe / Suspicious / Risk labels are provisional demo outputs. They are not validated and do not establish methanol presence, absence, or concentration.
           </Text>
         </View>
 
