@@ -403,14 +403,14 @@ export default function ResultScreen() {
                     'strong'
                       ? 'Strong'
                       : result.quality
-                          .purpleSignal ===
+                          .yellowSignal ===
                         'ok'
                         ? 'Detected'
                         : 'Weak'
                   }
                   warning={
                     result.quality
-                      .purpleSignal !==
+                      .yellowSignal !==
                     'strong'
                   }
                 />
